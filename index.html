@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FreshMarket - Tu tienda online de alimentos frescos y saludables.">
+    <title>FreshMarket - Tu Tienda de Alimentos Frescos</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23FF6B35'/%3E%3Cpath d='M20 25 L25 55 Q26 65 36 65 L78 65 Q88 65 89 55 L94 25' stroke='white' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='38' cy='73' r='7' fill='white'/%3E%3Ccircle cx='76' cy='73' r='7' fill='white'/%3E%3C/svg%3E">
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <span><i class="fas fa-phone"></i> +1 234 567 890</span>
+            <span><i class="fas fa-envelope"></i> info@freshmarket.com</span>
+            <span><i class="fas fa-clock"></i> Lun - Dom: 8:00 - 20:00</span>
+        </div>
+        <div class="top-bar-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo" onclick="showSection('inicio')">
+            <i class="fas fa-shopping-cart"></i>
+            FreshMarket
+        </div>
+        <nav>
+            <ul>
+                <li><a id="nav-inicio" onclick="showSection('inicio')" class="active">Inicio</a></li>
+                <li><a id="nav-ofertas" onclick="showSection('ofertas')">Ofertas</a></li>
+                <li><a id="nav-productos" onclick="showSection('productos')">Productos</a></li>
+                <li><a id="nav-contacto" onclick="showSection('contacto')">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icons">
+            <div id="user-display">
+                <i class="fas fa-user-circle"></i>
+                <span id="username-span"></span>
+            </div>
+            <button id="auth-btn" class="btn-icon" onclick="showSection('login')" title="Iniciar Sesión">
+                <i class="fas fa-user"></i>
+            </button>
+            <button class="btn-icon" onclick="showSection('carrito')" title="Carrito">
+                <i class="fas fa-shopping-basket"></i>
+                <span id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- SECCIÓN INICIO -->
+    <section id="inicio" class="active-section">
+        <h1>Alimentos Frescos y Saludables</h1>
+        <p>Del campo a tu mesa con la mejor calidad y precios increíbles. ¡Compra ahora y recibe en 24 horas!</p>
+        <button class="btn-cta" onclick="showSection('productos')">Ver Productos</button>
+    </section>
+
+    <!-- SECCIÓN OFERTAS -->
+    <section id="ofertas">
+        <h2>Ofertas Especiales</h2>
+        <div class="offers-banner">
+            <h3><i class="fas fa-percentage"></i> 30% DE DESCUENTO</h3>
+            <p>En tu primera compra usando el código: FRESCO30</p>
+        </div>
+        <div class="products-grid" id="offers-container"></div>
+    </section>
+
+    <!-- SECCIÓN PRODUCTOS -->
+    <section id="productos">
+        <h2>Nuestros Productos</h2>
+        <div class="products-grid" id="products-container"></div>
+    </section>
+
+    <!-- SECCIÓN CARRITO -->
+    <section id="carrito">
+        <h2>Tu Carrito de Compras</h2>
+        <div class="cart-container">
+            <div id="cart-items">
+                <p style="text-align: center; padding: 2rem; color: #999;">Tu carrito está vacío. ¡Agrega algunos productos frescos!</p>
+            </div>
+            <div class="cart-total">
+                Total: $<span id="cart-total">0.00</span>
+            </div>
+            <button class="btn-checkout" onclick="processCheckout()">
+                <i class="fas fa-credit-card"></i> Proceder al Pago
+            </button>
+        </div>
+    </section>
+
+    <!-- SECCIÓN LOGIN -->
+    <section id="login">
+        <h2>Iniciar Sesión</h2>
+        <div class="form-container">
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Usuario</label>
+                    <input type="text" id="login-user" required placeholder="Ingresa tu usuario">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Contraseña</label>
+                    <input type="password" id="login-pass" required placeholder="Ingresa tu contraseña">
+                </div>
+                <button type="submit" class="btn-submit">Entrar</button>
+            </form>
+            <div class="switch-form">
+                ¿No tienes cuenta? <span onclick="showSection('registro')">Regístrate aquí</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN REGISTRO -->
+    <section id="registro">
+        <h2>Crear Cuenta</h2>
+        <div class="form-container">
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Nombre Completo</label>
+                    <input type="text" id="reg-name" required placeholder="Tu nombre completo">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                    <input type="email" id="reg-email" required placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Contraseña</label>
+                    <input type="password" id="reg-pass" required placeholder="Mínimo 6 caracteres">
+                </div>
+                <button type="submit" class="btn-submit">Registrarse</button>
+            </form>
+            <div class="switch-form">
+                ¿Ya tienes cuenta? <span onclick="showSection('login')">Inicia sesión</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CONTACTO -->
+    <section id="contacto">
+        <h2>Contáctanos</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Visítanos</h3>
+                <p>Av. Fresh Market 123<br>Ciudad de México, CP 01000</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Llámanos</h3>
+                <p>+1 234 567 890<br>Lun - Dom: 8:00 - 20:00</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-envelope-open"></i>
+                <h3>Escríbenos</h3>
+                <p>info@freshmarket.com<br>soporte@freshmarket.com</p>
+            </div>
+        </div>
+        <div class="form-container" style="max-width: 600px;">
+            <form onsubmit="event.preventDefault(); alert('¡Mensaje enviado! Te contactaremos pronto.');">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" required placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea rows="5" required placeholder="¿En qué podemos ayudarte?"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- MODAL DE PAGO -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <div id="modal-loader">
+                <div class="loader"></div>
+                <p>Procesando tu pago de forma segura...</p>
+            </div>
+            <div id="modal-success" style="display: none;">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3 style="color: var(--dark); margin-bottom: 1rem;">¡Compra Exitosa!</h3>
+                <p style="color: #666; margin-bottom: 1.5rem;">Gracias por tu compra. Recibirás un correo con los detalles de tu pedido.</p>
+                <button class="btn-submit" onclick="closeModal()">Continuar Comprando</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3><i class="fas fa-shopping-cart"></i> FreshMarket</h3>
+                <p>Tu tienda de confianza para productos frescos y de calidad. Llevamos lo mejor del campo directamente a tu hogar.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="#">Frutas Frescas</a></li>
+                    <li><a href="#">Verduras Orgánicas</a></li>
+                    <li><a href="#">Carnes y Aves</a></li>
+                    <li><a href="#">Lácteos</a></li>
+                    <li><a href="#">Panadería</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="#">Ofertas del Día</a></li>
+                    <li><a href="#">Blog de Recetas</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Suscríbete para recibir ofertas exclusivas y recetas deliciosas.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte!');">
+                    <input type="email" placeholder="Tu email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FreshMarket. Todos los derechos reservados. | Hecho con <i class="fas fa-heart" style="color: var(--primary);"></i> para ti</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
