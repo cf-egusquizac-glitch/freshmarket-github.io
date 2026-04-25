@@ -32,7 +32,3 @@
 - **Font Awesome** - Iconos vectoriales
 - **Google Fonts** - Tipografías Poppins y Playfair Display
 - **Unsplash** - Imágenes de productos de alta calidad
-
----
-
-## 📁 Estructura del Proyecto
